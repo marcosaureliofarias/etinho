@@ -1,10 +1,10 @@
-name: CD
+name: etinho
 on:
   push:
     branches: [main]
 jobs:
   build:
-    name: Build
+    name: etinho-build
     runs-on: ubuntu-latest
     steps:
       - name: checkout
@@ -20,3 +20,6 @@ jobs:
     steps:
       - name: checkout
         uses: actions/checkout@v2
+
+      - name: checkout
+        run: deploy feito 
