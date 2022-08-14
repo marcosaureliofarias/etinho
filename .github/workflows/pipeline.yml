@@ -1,38 +1,27 @@
+name: CD
 on:
   push:
     branches: [main]
-  pull_request:
-    branches: [main]  
-
-name: etinho
-
 jobs:
+  build:
+    name: Build
+    runs-on: ubuntu-latest
+    steps:
+      - name: checkout
+        uses: actions/checkout@v2
+
+      - name: build image and push to docker hub
+        uses: docker/build-push-action@v1.1.0
+        with:
+          # username: ${{ secrets.DOCKER_USER }}
+          # password: ${{ secrets.DOCKER_TOKEN }}
+          # repository: marcosaureliofarias/thrower-hunting
+          # tags: ${{ github.sha }}, latest
+
   deploy:
     name: Deploy
     runs-on: ubuntu-latest
-
-    # env:
-    #   AWS_REGION: us-west-2
-
+    needs: build
     steps:
-    # - name: Checkout
-    #   uses: actions/checkout@v1
-
-    # - name: Configure AWS credentials
-    #   uses: aws-actions/configure-aws-credentials@v1
-    #   with:
-    #     aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
-    #     aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-    #     aws-region: ${{ env.AWS_REGION }}
-
-    - name: Aplication dependency
-      run:  echo usuario logado com sucesso
-
-    - name: Aplication build
-      run:  docker run build -t etinho .
-
-    - name: etapa de teste 
-      run:  echo teste com 100% com sucesso
-
-    - name: final
-      run: echo deploy success
+      - name: checkout
+        uses: actions/checkout@v2
