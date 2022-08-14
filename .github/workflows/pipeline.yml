@@ -12,7 +12,7 @@ jobs:
     runs-on: ubuntu-latest
 
     env:
-      AWS_REGION: ${{ secrets.AWS_REGION }}
+      AWS_REGION: us-west-2
 
     steps:
     - name: Checkout
@@ -28,9 +28,11 @@ jobs:
     - name: Aplication dependency
       run:  echo usuario logado com sucesso
 
-    - name: Aplication dependency
-      run:  docker build -t etinho .
+    - name: Aplication build
+      run:  docker run build -t etinho .
 
+    - name: etapa de teste 
+      run:  echo teste com 100% com sucesso
 
     - name: final
       run: echo deploy success
